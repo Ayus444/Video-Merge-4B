@@ -1,21 +1,21 @@
-FROM python:3.10.8-slim-buster
+FROM python:3.12-slim
 
-WORKDIR /usr/src/mergebot
-RUN chmod 777 /usr/src/mergebot
+# Set working directory
+WORKDIR /app
 
-RUN apt-get -y update \
-    && apt-get -y upgrade \
-    && apt-get install apt-utils -y \ 
-    && apt-get install -y python3-full python3-pip git wget curl pv jq ffmpeg neofetch mediainfo \
-    && apt-get clean
-
-## To enable rclone upload, uncommnet the following line; 
-# RUN curl https://rclone.org/install.sh | bash
-
-RUN python3 -m venv venv && chmod +x venv/bin/python
-
+# Copy requirements
 COPY requirements.txt .
-RUN venv/bin/python -m pip install --no-cache-dir -r requirements.txt
 
+# Create venv and install dependencies
+RUN python3 -m venv venv && \
+    venv/bin/pip install --upgrade pip && \
+    venv/bin/pip install --no-cache-dir -r requirements.txt
 
-CMD gunicorn app:app & python3 bot.py
+# Copy source code
+COPY . .
+
+# Expose port for gunicorn
+EXPOSE 8000
+
+# Run both gunicorn and your bot using the same virtual environment
+CMD ["sh", "-c", "venv/bin/gunicorn -b 0.0.0.0:8000 app:app & venv/bin/python3 bot.py"]
