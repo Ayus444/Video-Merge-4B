@@ -7,7 +7,7 @@ class Config(object):
     OWNER = os.environ.get("OWNER", "6530997270")
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME", "Slayerxcorp")
     PASSWORD = os.environ.get("PASSWORD", "mypass")
-    DATABASE_URL = os.environ.get("DATABASE_URL", "mongodb+srv://neoayush444:3kuwGf9jKicbDxvT@cluster0.f9vq7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+    DATABASE_URL = os.environ.get("DATABASE_URL", "")
     LOGCHANNEL = int(os.environ.get("LOGCHANNEL", "-1002294532244"))  # Convert to integer for Telegram compatibility
     GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", "root")
     USER_SESSION_STRING = os.environ.get("USER_SESSION_STRING", None)
