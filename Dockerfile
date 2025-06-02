@@ -6,6 +6,10 @@ WORKDIR /app
 # Copy requirements
 COPY requirements.txt .
 
+RUN apt-get update && \
+    apt-get install -y gcc python3-dev build-essential && \
+    apt-get clean
+
 # Create venv and install dependencies
 RUN python3 -m venv venv && \
     venv/bin/pip install --upgrade pip && \
