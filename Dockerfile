@@ -7,7 +7,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 RUN apt-get update && \
-    apt-get install -y gcc python3-dev build-essential && \
+    apt-get install -y ffmpeg gcc python3-dev build-essential && \
     apt-get clean
 
 # Create venv and install dependencies
